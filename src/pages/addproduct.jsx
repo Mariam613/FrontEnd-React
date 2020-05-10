@@ -288,6 +288,7 @@ class AddProduct extends Component {
                   name="category"
                   onChange={this.handleChange}
                 >
+                  <option defaultValue>Select Category</option>
                   {this.state.types.map(item => (
                     <option key={item._id} value={item._id}>
                       {item.category_Name}

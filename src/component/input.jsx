@@ -5,8 +5,7 @@ const Input = props => {
     <div className="form-group">
       <label htmlFor="name">{label}</label>
       <input
-        //type="text"
-        // autoFocus
+        type={name}
         className="form-control"
         id={name}
         name={name}
