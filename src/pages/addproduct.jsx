@@ -18,8 +18,7 @@ class AddProduct extends Component {
       imgUrl: "url('/img/products/product-grey-1.jpg')"
     },
     types: [],
-    token: "",
-    errors: {}
+    token: ""
   };
   async componentDidMount() {
     // const products = await GetAll();
@@ -39,50 +38,46 @@ class AddProduct extends Component {
     this.setState({ product });
   };
 
-  handleSave = async () => {
+  handleSubmit = async e => {
+    e.preventDefault();
     const { name, description, price, discount, category } = this.state.product;
     const product = { name, description, price, discount, category };
-    const { data } = Add(product, this.state.token);
-    let products = [...this.props.products];
-    products = products.push(data);
-    this.setState({ products });
-    // this.props.history.push("/productlist");
-    window.location.href = "/productlist";
-  };
-  handleCancel = async () => {
+    const data = await Add(product, this.state.token);
+    console.log("add", data);
     this.props.history.push("/productlist");
   };
-  handleSubmit = e => {
-    // console.log(this.username.current.value);
-    e.preventDefault();
-    //validate
-    // const errors = this.validate();
-    // //error
-    // if (errors) {
-    //   return;
-    // } else {
-    // }
-    //no error
-    //call backend server
 
-    console.log("register");
-  };
+  // handleSubmit = e => {
+  // console.log(this.username.current.value);
 
-  validate() {
-    const res = Joi.validate(this.state.account, this.schema, {
-      abortEarly: false
-    });
-    const errors = {};
-    //no error
-    if (res.error === null) return;
-    //exrtract error information from joi result
-    for (const item of res.error.details) {
-      errors[item.path] = item.message;
-    }
-    this.setState({ errors });
-    console.log(this.state.errors);
-    return errors;
-  }
+  //validate
+  // const errors = this.validate();
+  // //error
+  // if (errors) {
+  //   return;
+  // } else {
+  // }
+  //no error
+  //call backend server
+
+  // conszxxcole.log("register");
+  // };
+
+  // validate() {
+  //   const res = Joi.validate(this.state.account, this.schema, {
+  //     abortEarly: false
+  //   });
+  //   const errors = {};
+  //   //no error
+  //   if (res.error === null) return;
+  //   //exrtract error information from joi result
+  //   for (const item of res.error.details) {
+  //     errors[item.path] = item.message;
+  //   }
+  //   this.setState({ errors });
+  //   console.log(this.state.errors);
+  //   return errors;
+  // }
   // validateProperty(input) {
   //   //sub object
   //   const obj = { [input.name]: input.value };
@@ -98,7 +93,7 @@ class AddProduct extends Component {
   //   this.setState({ errors });
   // }
   render() {
-    console.log(this.state.types);
+    // console.log(this.state.types);
     // console.log(this.props.products);
     return (
       <div className=" container">
@@ -164,7 +159,7 @@ class AddProduct extends Component {
                         name="name"
                         value={this.state.product.name}
                         onChange={e => this.handleChange(e)}
-                        error={this.state.errors.name}
+                        // error={this.state.errors.name}
                       />
                     </div>
                     <div className="form-group">
@@ -174,7 +169,7 @@ class AddProduct extends Component {
                         name="description"
                         value={this.state.product.description}
                         onChange={e => this.handleChange(e)}
-                        error={this.state.errors.description}
+                        // error={this.state.errors.description}
                         cols="30"
                         rows="4"
                       ></textarea>
@@ -212,7 +207,7 @@ class AddProduct extends Component {
                   name="price"
                   value={this.state.product.price}
                   onChange={e => this.handleChange(e)}
-                  error={this.state.errors.price}
+                  // error={this.state.errors.price}
                 />
               </div>
               <div className="add-product__discount">
@@ -237,7 +232,7 @@ class AddProduct extends Component {
                     name="discount"
                     value={this.state.product.discount}
                     onChange={e => this.handleChange(e)}
-                    error={this.state.errors.discount}
+                    // error={this.state.ersrors.discount}
                   />
                 </div>
               </div>
@@ -389,19 +384,19 @@ class AddProduct extends Component {
                   Cancel
                 </button> */}
                 <Link
-                  onClick={this.handleCancel}
+                  onClick={this.props.handleCancel}
                   to="/productlist"
                   className="btn btn--gray"
                 >
                   Cancel
                 </Link>
-                <Link
-                  onClick={this.handleSave}
-                  to="/productlist"
+                <button
+                  onSubmit={e => this.handleSubmit(e)}
+                  type="submit"
                   className="btn btn--primary"
                 >
                   Add
-                </Link>
+                </button>
               </div>
             </div>
           </div>

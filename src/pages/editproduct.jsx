@@ -31,7 +31,8 @@ class EditProduct extends Component {
     product[e.target.name] = e.target.value;
     this.setState({ product });
   };
-  handleSave = async () => {
+  handleSubmit = async e => {
+    e.preventDefault();
     let token = localStorage.getItem("token");
     this.setState({ token });
     const editProduct = await Update(
@@ -40,14 +41,8 @@ class EditProduct extends Component {
       token
     );
     this.setState({ product: editProduct });
+    // this.props.history.push("/productlist");
     window.location.href = "/productlist";
-  };
-  handleCancel = async () => {
-    this.props.history.push("/productlist");
-  };
-  handleSubmit = e => {
-    // console.log(this.username.current.value);
-    e.preventDefault();
   };
   render() {
     console.log(this.state.product);
@@ -351,20 +346,16 @@ class EditProduct extends Component {
                 {/* <button href="#" className="btn btn--gray">
                   Cancel
                 </button> */}
-                <Link
-                  onClick={this.handleCancel}
-                  to="/productlist"
-                  className="btn btn--gray"
-                >
+                <Link to="/productlist" className="btn btn--gray">
                   Cancel
                 </Link>
-                <Link
-                  onClick={this.handleSave}
-                  to="/productlist"
+                <button
+                  onSubmit={e => this.handleSubmit(e)}
+                  type="submit"
                   className="btn btn--primary"
                 >
                   Save
-                </Link>
+                </button>
               </div>
             </div>
           </div>

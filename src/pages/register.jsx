@@ -16,26 +16,18 @@ class Register extends Component {
     this.setState({ user });
     console.log(this.state.user);
   };
-  handleSave = async e => {
-    console.log(this.state.user);
+
+  handleSubmit = async e => {
+    e.preventDefault(e);
     const { email, password, reEnterPassword } = this.state.user;
     if (password === reEnterPassword) {
       const user = { email, password };
       await Add(user);
-      // console.log(data[0]);
-      this.props.history.push("/productlist");
+      this.props.history.push("/login");
+      console.log("register");
     } else {
-      e.preventDefault(e);
       console.log("dont match");
     }
-    //clone
-    // const users = [...this.props.users];
-    // users.push(data);
-    // this.setState({ products });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("register");
   };
   render() {
     return (
@@ -49,7 +41,7 @@ class Register extends Component {
               name="email"
               value={this.state.user.email}
               onChange={this.handleChange}
-              //   error={this.state.errors.email}
+              // error={this.state.errors.email}
             />
           </div>
           <div className="form-row">
@@ -60,7 +52,7 @@ class Register extends Component {
                 name="password"
                 value={this.state.user.password}
                 onChange={e => this.handleChange(e)}
-                //   error={this.state.errors.email}
+                // error={this.state.errors.password}
               />
             </div>
             <div className="form-group">
@@ -70,20 +62,25 @@ class Register extends Component {
                 name="reEnterPassword"
                 value={this.state.user.reEnterPassword}
                 onChange={e => this.handleChange(e)}
-                //   error={this.state.errors.email}
+                //   error={this.state.errors.}
               />
             </div>
           </div>
 
           <div className="login__remember-me">
             <div className="add-product__actions">
-              <button href="#" className="btn btn--gray">
+              <Link to="/login" className="btn btn--gray">
                 Cancel
-              </button>
-              <button href="#" className="btn btn--primary">
-                <Link onClick={this.handleSave} to="/productlist">
-                  Register
-                </Link>
+              </Link>
+              <button
+                href="#"
+                className="btn btn--primary"
+                onSubmit={e => this.handleSubmit(e)}
+                type="submit"
+              >
+                {/* <Link to="/productlist"> */}
+                Register
+                {/* </Link> */}
               </button>
             </div>
           </div>

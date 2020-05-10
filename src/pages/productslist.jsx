@@ -125,11 +125,11 @@ class Home extends Component {
 
           <div className="item-listing__tools">
             <Sort onSort={this.props.onSort} />
-            {this.props.token != "" && (
-              <Link className="action-btn" to="/addproduct">
-                <i className="fas fa-plus"></i>
-              </Link>
-            )}
+            {/* {this.props.token != "" && ( */}
+            <Link className="action-btn" to="/addproduct">
+              <i className="fas fa-plus"></i>
+            </Link>
+            {/*  )} */}
           </div>
           {/* <!-- items --> */}
           <div className="item-listing__items item-listing--3items">

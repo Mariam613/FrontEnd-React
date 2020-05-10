@@ -36,8 +36,8 @@ class App extends Component {
       currentPage,
       pageSize,
       noofpages,
-      products,
-      token
+      products
+      // token
     } = this.state;
     const response = await GetAll(
       query,
@@ -56,11 +56,11 @@ class App extends Component {
       products,
       // mainproducts: products,
       filter: newFilter,
-      noofpages,
-      token: tokeen
+      noofpages
+      // token: tokeen
     });
 
-    console.log(this.state.token);
+    // console.log(this.state.token);
   }
   handleChangePage = async page => {
     console.log(page);
@@ -218,36 +218,9 @@ class App extends Component {
       filter,
       currentType,
       noofpages,
-      token,
+      // token,
       users
     } = this.state;
-    // console.log(currentType);
-    // let filteredProduct = products;
-    // if (currentType === 0) {
-    // } else {
-    //   filteredProduct = products.filter(
-    //     product => product.typeId === currentType
-    //   );
-    // console.log(currentPage);
-    // }
-    // //console.log(filteredTable);
-    // let searchedProduct = filteredProduct;
-    // if (this.state.query !== "") {
-    //   searchedProduct = filteredProduct.filter(e =>
-    //     e.name.toLowerCase().includes(this.state.query.toLowerCase())
-    //   );
-    // }
-    //console.log(contentPageType);
-    //pagination
-    // const startIndex = (currentPage - 1) * pageSize;
-    // // const contentPage = _.slice(table, startIndex, pageSize+startIndex);
-    // let contentPage = _(searchedProduct)
-    //   .slice(startIndex)
-    //   .take(pageSize)
-    //   .value();
-    // contentPage = contentPageType;
-    // console.log(products);
-    // console.log(this.state.typeId);
     return (
       <React.Fragment>
         <Header />
@@ -288,7 +261,7 @@ class App extends Component {
                 onSort={this.handleSort}
                 onDelete={this.handleDelete}
                 noofpages={noofpages}
-                token={token}
+                // token={token}
               />
             )}
           />

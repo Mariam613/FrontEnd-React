@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { LogIn } from "../services/users";
 import Input from "../component/input";
-import Axios from "axios";
+
 class Login extends Component {
   state = {
     user: {
@@ -16,7 +16,8 @@ class Login extends Component {
     this.setState({ user });
     console.log(this.state.user);
   };
-  handleLogin = async e => {
+  handleSubmit = async e => {
+    e.preventDefault();
     const { email, password } = this.state.user;
     const user = { email, password };
     const data = await LogIn(user);
@@ -24,15 +25,14 @@ class Login extends Component {
     if (data) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-      console.log(data.user);
+      console.log(data.token);
+      this.props.history.push("/productlist");
+      console.log("login");
     } else {
       alert("wrong user name or password");
     }
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    // console.log("register");
-  };
+
   render() {
     return (
       <div className="container">
@@ -68,21 +68,27 @@ class Login extends Component {
               <span>Remember Me</span>
             </div>
             <div className="add-product__actions">
-              <button href="#" className="btn btn--gray">
+              <Link
+                // onClick={this.props.handleCancel}
+                to="/productlist"
+                className="btn btn--gray"
+              >
                 Cancel
-              </button>
-              <button href="#" className="btn btn--primary">
-                <Link onClick={this.handleLogin} to="/productlist">
-                  Login
-                </Link>
+              </Link>
+              <button
+                type="submit"
+                href="#"
+                className="btn btn--primary"
+                onSubmit={e => this.handleSubmit(e)}
+              >
+                Login
               </button>
             </div>
           </div>
-          <button href="#" className="btn btn--primary">
-            <Link to="/register" className="login__register-now">
-              Register Now
-            </Link>
-          </button>
+
+          <Link to="/register" className="login__register-now">
+            Register Now
+          </Link>
         </form>
       </div>
     );
